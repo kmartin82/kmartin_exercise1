@@ -9,7 +9,7 @@ public class Main {
         float averageTemp = (temperature[0]+temperature[1]+temperature[2]+temperature[3]+temperature[4])/5;
         System.out.println("City " + cityName);
         System.out.println("Zip Code " + zipCode);
-        System.out.println("Average Temperature " + averageTemp);
+        System.out.println("Average TemperatuRe " + averageTemp);
 
     }
 }
