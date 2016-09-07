@@ -1,4 +1,4 @@
-package com.KevinMartin.week_01;
+package com.KevinMartin.week1;
 
 public class Main {
 
