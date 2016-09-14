@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     static double fToC (double fahrenheit){
-        double calcuis = 5.0/9*(fahrenheit-32);
-        return calcuis;
+        double celcuis = 5.0/9*(fahrenheit-32);
+        return celcuis;
     }
 
     static void display(double temperture){
