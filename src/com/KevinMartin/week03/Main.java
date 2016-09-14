@@ -5,16 +5,16 @@ import java.util.Scanner;
 
 public class Main {
     static double fToC (double fahrenheit){
-        double celcuis = 5.0/9*(fahrenheit-32);
-        return celcuis;
+        double celsius = 5.0/9*(fahrenheit-32);
+        return celsius;
     }
 
-    static void display(double temperture){
-        System.out.println("the tempature is " + temperture );
+    static void display(double temperature){
+        System.out.println("the temperature is " + temperature );
 
     }
 
-    static double userInput(){
+    static double userInput() {
         System.out.println("Enter a Fahrenheit  temperature ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -22,11 +22,11 @@ public class Main {
         return doubleInput;
     }
     public static void main(String[] args) {
-        Double userTempature = userInput();
-        while (userTempature >=  -460){
-            double celsuis = fToC(userTempature);
-            display(celsuis);
-            userTempature = userInput();
+        Double userTemperature = userInput();
+        while (userTemperature >=  -460){
+            double celsius = fToC(userTemperature);
+            display(celsius);
+            userTemperature = userInput();
         }
 
 
