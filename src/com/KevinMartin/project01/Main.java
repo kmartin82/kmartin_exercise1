@@ -1,18 +1,29 @@
 package com.KevinMartin.project01;
 
 
+import java.awt.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
 
-    static void addTask(){
+    static void addTask(String addTaskArray[], int addTaskNumberInt){
+        String newTask;
+        System.out.println("Enter the description of the new task");
+        Scanner scanner = new Scanner(System.in);
+        newTask = scanner.nextLine();
+        addTaskArray[addTaskNumberInt] = newTask;
+    }
 
+
+    static void removeTask(List removeTaskArray, int removeTaskNumberint){
+        int taskRemovedInt;
+        System.out.println("Enter the index of the task to remove.");
+        Scanner scanner = new Scanner(System.in);
+        taskRemovedInt = Integer.parseInt(scanner.nextLine());
+        
         }
-
-
-    static void removeTask(){
-
 
     }
 
@@ -27,11 +38,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        String taskArray[] = {};
-        int actionWantedInt;
+        String  taskArray[] = {""};
+        int actionWantedInt = 0 ,numberOfTaskInt = 0;
         boolean exitLoop = false;
 
-        while (exitLoop != true ) {
+        while (!exitLoop) {
             System.out.println("please choose an option:");
             System.out.println("<1> Add a task.");
             System.out.println("<2> Remove a task.");
@@ -43,11 +54,11 @@ public class Main {
             actionWantedInt = Integer.parseInt(scanner.nextLine());
 
             if (actionWantedInt == 1) {
-
-                System.out.println("add");
+                addTask(taskArray, numberOfTaskInt);
+                numberOfTaskInt++;
             } else if (actionWantedInt == 2) {
-                removeTask();
-                System.out.println("remove");
+                removeTask(taskArray, numberOfTaskInt);
+                numberOfTaskInt--;
             } else if (actionWantedInt == 3) {
                 updateTask();
                 System.out.println("update");
