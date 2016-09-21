@@ -1,46 +1,56 @@
 package com.KevinMartin.project01;
 
 
-import java.awt.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
 
-    static void addTask(String addTaskArray[], int addTaskNumberInt){
-        String newTask;
+    static void addTask(List addTaskList){
+        String newTaskString;
         System.out.println("Enter the description of the new task");
         Scanner scanner = new Scanner(System.in);
-        newTask = scanner.nextLine();
-        addTaskArray[addTaskNumberInt] = newTask;
+        newTaskString = scanner.nextLine();
+        addTaskList.add(0, newTaskString);
     }
 
 
-    static void removeTask(List removeTaskArray, int removeTaskNumberint){
+    static void removeTask(List removeTaskList){
         int taskRemovedInt;
         System.out.println("Enter the index of the task to remove.");
         Scanner scanner = new Scanner(System.in);
         taskRemovedInt = Integer.parseInt(scanner.nextLine());
-        
+        removeTaskList.remove(taskRemovedInt);
         }
 
+
+
+    static void updateTask(List updateTaskList){
+        int updateTaskInt;
+        String newTaskString;
+        System.out.println("Enter the index of the task to remove.");
+        Scanner scanner = new Scanner(System.in);
+        updateTaskInt = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the new description of the task.");
+        newTaskString = scanner.nextLine();
+        updateTaskList.set(updateTaskInt, newTaskString);
+
     }
 
-    static void updateTask(){
-
-
-    }
-
-    static void listTask(){
-
-
+    static void listTask(List listTaskList){
+        for (int count = 0 ; count < listTaskList.size()   ; count++){
+            System.out.println(count +". "+ listTaskList.get(count));
+        }
     }
 
     public static void main(String[] args) {
-        String  taskArray[] = {""};
-        int actionWantedInt = 0 ,numberOfTaskInt = 0;
+
+        List<String> tasks = new ArrayList<>();
+        int actionWantedInt;
         boolean exitLoop = false;
+        Scanner scanner = new Scanner(System.in);
 
         while (!exitLoop) {
             System.out.println("please choose an option:");
@@ -50,22 +60,21 @@ public class Main {
             System.out.println("<4> list all tasks.");
             System.out.println("<0> exit ");
 
-            Scanner scanner = new Scanner(System.in);
             actionWantedInt = Integer.parseInt(scanner.nextLine());
 
             if (actionWantedInt == 1) {
-                addTask(taskArray, numberOfTaskInt);
-                numberOfTaskInt++;
-            } else if (actionWantedInt == 2) {
-                removeTask(taskArray, numberOfTaskInt);
-                numberOfTaskInt--;
-            } else if (actionWantedInt == 3) {
-                updateTask();
-                System.out.println("update");
-            } else if (actionWantedInt == 4) {
-                listTask();
-                System.out.println("list");
-            } else {
+                addTask(tasks);
+            }
+            else if (actionWantedInt == 2) {
+                removeTask(tasks);
+            }
+            else if (actionWantedInt == 3) {
+                updateTask(tasks);
+            }
+            else if (actionWantedInt == 4) {
+                listTask(tasks);
+            }
+            else {
                 exitLoop = true;
             }
             actionWantedInt = 0;
