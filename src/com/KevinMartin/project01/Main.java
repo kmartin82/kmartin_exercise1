@@ -30,7 +30,7 @@ public class Main {
     static void updateTask(List updateTaskList){
         int updateTaskInt;
         String newTaskString;
-        System.out.println("Enter the index of the task to remove.");
+        System.out.println("Enter the index of the task to update.");
         Scanner scanner = new Scanner(System.in);
         updateTaskInt = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter the new description of the task.");
@@ -77,7 +77,6 @@ public class Main {
             else {
                 exitLoop = true;
             }
-            actionWantedInt = 0;
         }
     }
 
