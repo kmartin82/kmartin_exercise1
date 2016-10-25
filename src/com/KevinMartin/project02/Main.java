@@ -1,19 +1,59 @@
-package com.KevinMartin.project01;
-
+package com.KevinMartin.project02;
 
 import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Scanner;
+import java.util.List;
+import java.util.Scanner;
+
+ class Item {
+    private String titleString;
+    private String descriptionString;
+    private int priorityString;
+
+     public Item(String title, String description, int priority){
+         this.titleString = title;
+         this.descriptionString = description;
+         this.priorityString = priority;
+     }
+
+     public String getDescriptionString() {
+         return descriptionString;
+     }
+
+     public void setDescriptionString(String descriptionString) {
+         this.descriptionString = descriptionString;
+     }
+
+     public String getTitleString() {
+         return titleString;
+     }
+
+     public void setTitleString(String titleString) {
+         this.titleString = titleString;
+     }
+
+     public int getPriorityString() {
+         return priorityString;
+     }
+
+     public void setPriorityString(int priorityString) {
+         this.priorityString = priorityString;
+     }
+ }
 
 public class Main {
 
 
     static void addTask(List addTaskList){
-        String newTaskString;
-        System.out.println("Enter the description of the new task");
+        String newTitleTaskString, newDescriptionTaskString;
+        int newPriorityTaskInt;
         Scanner scanner = new Scanner(System.in);
-        newTaskString = scanner.nextLine();
-        addTaskList.add(0, newTaskString);
+        System.out.println("Enter the new tasks descriptionString");
+        newTitleTaskString = scanner.nextLine();
+        System.out.println("Enter the new tasks descriptionString");
+        newDescriptionTaskString = scanner.nextLine();
+        System.out.println("Enter the new tasks descriptionString");
+        newPriorityTaskInt = Integer.parseInt(scanner.nextLine());
+        addTaskList.add(1, new Item(newTitleTaskString, newDescriptionTaskString, newPriorityTaskInt ));
     }
 
 
@@ -33,7 +73,7 @@ public class Main {
         System.out.println("Enter the index of the task to update.");
         Scanner scanner = new Scanner(System.in);
         updateTaskInt = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter the new description of the task.");
+        System.out.println("Enter the new descriptionString of the task.");
         newTaskString = scanner.nextLine();
         updateTaskList.set(updateTaskInt, newTaskString);
 
@@ -47,7 +87,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<String> tasks = new ArrayList<>();
+        List<Item> tasks = new ArrayList<Item>();
         int actionWantedInt;
         boolean exitLoop = false;
         Scanner scanner = new Scanner(System.in);
@@ -58,7 +98,8 @@ public class Main {
             System.out.println("<2> Remove a task.");
             System.out.println("<3> update a task.");
             System.out.println("<4> list all tasks.");
-            System.out.println("<0> exit ");
+            System.out.println("<5> list all tasks of a certain priorityString.");
+            System.out.println("<0> Exit ");
 
             actionWantedInt = Integer.parseInt(scanner.nextLine());
 
@@ -73,6 +114,9 @@ public class Main {
             }
             else if (actionWantedInt == 4) {
                 listTask(tasks);
+            }
+            else if (actionWantedInt == 5){
+
             }
             else {
                 exitLoop = true;
