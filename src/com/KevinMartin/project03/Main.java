@@ -1,13 +1,110 @@
 package com.KevinMartin.project03;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.Consumer;
 
-class Item {
+
+class TaskCollection implements Iterable<Item>{
+    private List<Item> tasks = new ArrayList<>();
+
+    public void add(){
+        String newTitleTaskString, newDescriptionTaskString;
+        int newPriorityTaskInt;
+        Item item = new Item();
+
+        newTitleTaskString = item.promptTitle("Enter the new task's name.");
+        newDescriptionTaskString = item.promptDescription("Enter the new task's description.");
+        newPriorityTaskInt = item.promptPriority("Enter the new tasks priority");
+        item.setTitleString(newTitleTaskString);
+        item.setDescriptionString(newDescriptionTaskString);
+        item.setPriorityString(newPriorityTaskInt);
+        tasks.add(item);
+    }
+    public void remove(){
+        int taskRemovedInt;
+        System.out.println("Enter the index of the task to remove.");
+        Scanner scanner = new Scanner(System.in);
+        taskRemovedInt = Integer.parseInt(scanner.nextLine());
+        tasks.remove(taskRemovedInt);
+    }
+    public void set(){
+        String newTitleTaskString, newDescriptionTaskString;
+        int newPriorityTaskInt;
+        Item item = new Item();
+        int updateTaskInt;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the index of the task to update.");
+        updateTaskInt = Integer.parseInt(scanner.nextLine());
+        newTitleTaskString = item.promptTitle("Enter the new task's name.");
+        newDescriptionTaskString = item.promptDescription("Enter the new task's description.");
+        newPriorityTaskInt = item.promptPriority("Enter the new tasks priority");
+        item.setTitleString(newTitleTaskString);
+        item.setDescriptionString(newDescriptionTaskString);
+        item.setPriorityString(newPriorityTaskInt);
+        tasks.set(updateTaskInt, item);
+    }
+    public void listTasks(){
+        int count = 0;
+        for (Item item : tasks) {
+            System.out.println("Task index: " + count + ", Name: " + item.getTitleString() +
+                    ", Description: " + item.getDescriptionString() + ", Priority: " + item.getPriorityString());
+            count++;
+        }
+    }
+
+    public void listPriorityTask() {
+        int priorityWantedInt = 0, count = 0;
+        String priorityWantedString;
+        boolean isInt = false;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a priority");
+        priorityWantedString = scanner.nextLine();
+
+        while (!isInt) {
+            try {
+                priorityWantedInt = Integer.parseInt(priorityWantedString);
+                isInt = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a priority");
+                priorityWantedString = scanner.nextLine();
+            }
+        }
+        for (Item item : tasks) {
+            if (item.getPriorityString() == priorityWantedInt) {
+                System.out.println("Task index: " + count + ", Name: " + item.getTitleString() +
+                        ", Description: " + item.getDescriptionString() + ", Priority: " + item.getPriorityString());
+            }
+            count++;
+        }
+    }
+    @Override
+    public void forEach(Consumer<? super Item> action) {
+
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return tasks.iterator();
+    }
+}
+
+
+class Item implements Comparable<Item> {
     private String titleString;
     private String descriptionString;
     private int priorityString;
     Scanner scanner = new Scanner(System.in);
+
+    @Override
+    public int compareTo(Item o) {
+        if (!(priorityString == o.getPriorityString())){
+            return priorityString - o.getPriorityString();
+        }
+        else {
+            return titleString.compareTo(o.getTitleString());
+        }
+    }
 
     public Item(){
 
@@ -73,97 +170,38 @@ class Item {
         else {
             return userInt;
         }
-    }
 
+    }
 }
 
 public class Main {
 
 
-    static void AddTask(List<Item> addTaskList) {
-        String newTitleTaskString, newDescriptionTaskString;
-        int newPriorityTaskInt;
-        Item item = new Item();
-
-        newTitleTaskString = item.promptTitle("Enter the new task's name.");
-        newDescriptionTaskString = item.promptDescription("Enter the new task's description.");
-        newPriorityTaskInt = item.promptPriority("Enter the new tasks priority");
-        item.setTitleString(newTitleTaskString);
-        item.setDescriptionString(newDescriptionTaskString);
-        item.setPriorityString(newPriorityTaskInt);
-        addTaskList.add(0, item);
+    static void AddTask( TaskCollection taskCollection) {
+        taskCollection.add();
     }
 
 
-    static void RemoveTask(List<Item> removeTaskList) {
-        int taskRemovedInt;
-        System.out.println("Enter the index of the task to remove.");
-        Scanner scanner = new Scanner(System.in);
-        taskRemovedInt = Integer.parseInt(scanner.nextLine());
-        removeTaskList.remove(taskRemovedInt);
+    static void RemoveTask(TaskCollection taskCollection) {
+        taskCollection.remove();
     }
 
 
-    static void UpdateTask(List<Item> updateTaskList) {
-        String newTitleTaskString, newDescriptionTaskString;
-        int newPriorityTaskInt;
-        Item item = new Item();
-        int updateTaskInt;
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the index of the task to update.");
-        updateTaskInt = Integer.parseInt(scanner.nextLine());
-        newTitleTaskString = item.promptTitle("Enter the new task's name.");
-        newDescriptionTaskString = item.promptDescription("Enter the new task's description.");
-        newPriorityTaskInt = item.promptPriority("Enter the new tasks priority");
-        item.setTitleString(newTitleTaskString);
-        item.setDescriptionString(newDescriptionTaskString);
-        item.setPriorityString(newPriorityTaskInt);
-        updateTaskList.set(updateTaskInt, item);
-
+    static void UpdateTask(TaskCollection taskCollection) {
+        taskCollection.set();
     }
 
-    static void ListTask(List<Item> listTaskList) {
-        int count = 0;
-        for (Item item : listTaskList) {
-            System.out.println("Task index: " + count + ", Name: " + item.getTitleString() +
-                    ", Description: " + item.getDescriptionString() + ", Priority: " + item.getPriorityString());
-            count++;
-        }
+    static void ListTask(TaskCollection taskCollection) {
+       taskCollection.listTasks();
     }
 
-    static void ListPriorityTask(List<Item> listPriorityTask) {
-        int priorityWantedInt = 0, count = 0;
-        String priorityWantedString;
-        boolean isInt = false;
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter a priority");
-        priorityWantedString = scanner.nextLine();
-
-        while (!isInt) {
-            try {
-                priorityWantedInt = Integer.parseInt(priorityWantedString);
-                isInt = true;
-            } catch (NumberFormatException e) {
-                System.out.println("Enter a priority");
-                priorityWantedString = scanner.nextLine();
-            }
-        }
-        for (Item item : listPriorityTask) {
-            if (item.getPriorityString() == priorityWantedInt) {
-                System.out.println("Task index: " + count + ", Name: " + item.getTitleString() +
-                        ", Description: " + item.getDescriptionString() + ", Priority: " + item.getPriorityString());
-            }
-            count++;
-        }
-
-
+    static void ListPriorityTask(TaskCollection taskCollection) {
+        taskCollection.listPriorityTask();
     }
 
     public static void main(String[] args) {
 
-        List<Item> tasks = new ArrayList<Item>();
+        TaskCollection tasks = new TaskCollection();
         int actionWantedInt = 0;
         String actionWantedString;
         boolean exitLoop = false;
@@ -208,6 +246,7 @@ public class Main {
             } else {
                 exitLoop = true;
             }
+
         }
     }
 }
